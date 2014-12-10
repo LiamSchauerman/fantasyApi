@@ -1,0 +1,22 @@
+{
+  "name": "cagematch",
+  "repository" :
+    { "type" : "git"
+    , "url" : "https://github.com/LiamSchauerman/fantasyApi.git"
+    },
+  "version": "0.0.1",
+  "description": "Fantasy Stat Machine",
+  "main": "server.js",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "angular": "^1.2.23",
+    "body-parser": "^1.4.3",
+    "ejs": "*",
+    "express": "^4.4.5",
+    "nodemon": "^1.2.1",
+    "q": "^1.0.1",
+    "request": "^2.40.0",
+  }
+}
