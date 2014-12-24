@@ -17,6 +17,7 @@ app.use(express.static(__dirname + '/client'));
 
 var port = process.env.PORT || 4568;
 app.listen(port);
+console.log('listening on port '+port)
 
 
 app.get('/', function(req, res){
