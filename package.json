@@ -19,7 +19,6 @@
     "fantasysports": "^0.3.0",
     "nodemon": "^1.2.1",
     "q": "^1.0.1",
-    "request": "^2.40.0",
-    "yahoo-fantasy": "^0.1.2"
+    "request": "^2.40.0"
   }
 }

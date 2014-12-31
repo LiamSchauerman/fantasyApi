@@ -2,7 +2,7 @@ var path = require('path');
 var fs = require('fs')
 var cookieSession = require('cookie-session');
 
-var FantasySports = require('FantasySports');
+var FantasySports = require('fantasysports');
 FantasySports.options({
     "accessTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_request_token",
     "requestTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_token",
