@@ -65,11 +65,11 @@ exports.myTeams = function(req, res) {
 exports.getID = function(req, res) {
     FantasySports
         .request(req, res)
-        .api("http://fantasysports.yahooapis.com/fantasy/v2/game/nba")
+        .api("http://fantasysports.yahooapis.com/fantasy/v2/game/nba?format=json")
         .done(function(data){
             res.json(data)
         });
-}
+};
 
 // exports.myTeam = function(req, res) {
 //     FantasySports
