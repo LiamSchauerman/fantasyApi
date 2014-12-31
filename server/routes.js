@@ -67,12 +67,7 @@ exports.myMatchups = function(req, res) {
         .request(req, res)
         .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5/matchups?format=json')
         .done(function(data) {
-            var matchups = data.fantasy_content.team[1].matchups
-            
-            //_.each(leagueData, function(value) {
-            //    if (value.league) leagues.push(value.league[0]);
-            //});
-            //console.log('leagues', leagues);
+            var matchups = data.fantasy_content.team[1].matchups;
             res.json(matchups);
         });
 };
@@ -141,8 +136,8 @@ exports.myTeam = function(req, res) {
 
 module.exports = function (app, express) {
 	app.use(cookieSession({ 
-	    key: 'some key', 
-	    secret: 'some secret', 
+	    key: 'secretkey', 
+	    secret: 'secretsecret', 
 	    proxy: true 
 	}));
 	// Use the client folder as the root public folder.
