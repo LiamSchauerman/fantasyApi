@@ -80,9 +80,10 @@ exports.getID = function(req, res) {
 exports.myMatchups = function(req, res) {
     FantasySports
         .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5/matchups?format=json')
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.1/matchups?format=json')
         .done(function(data) {
-            var matchups = data.fantasy_content.team[1].matchups;
+            
+            // var matchups = data.fantasy_content.team[1].matchups;
             res.json(matchups);
         });
 };
