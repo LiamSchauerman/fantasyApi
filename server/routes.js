@@ -9,7 +9,7 @@ FantasySports.options({
     "oauthKey": "dj0yJmk9SzZTeXBHek5yYmE0JmQ9WVdrOWFHSjFXVEZGTm1VbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD03Ng--",
     "oauthSecret": "210dbc510d52ea2d78c442e6e6167cc00b20def4",
     "version": "1.0",
-    "callback": "https://fantasybballapi.herokuapp.com/auth/oauth/callback",
+    "callback": "http://fantasybballapi.herokuapp.com/auth/oauth/callback",
     "encryption": "HMAC-SHA1"
 });
 
