@@ -68,14 +68,14 @@ exports.getID = function(req, res) {
         .api("http://fantasysports.yahooapis.com/fantasy/v2/game/nba")
         .done(function(data){
             res.json(data)
-        })
+        });
 }
 
-exports.myTeam = function(req, res) {
-    FantasySports
-        .request(req, res)
-        .api("http://fantasysports.yahooapis.com/fantasy/v2/team/TEAMKEY")
-}
+// exports.myTeam = function(req, res) {
+//     FantasySports
+//         .request(req, res)
+//         .api("http://fantasysports.yahooapis.com/fantasy/v2/team/TEAMKEY")
+// }
 
 exports.myMatchups = function(req, res) {
     FantasySports
@@ -166,15 +166,15 @@ module.exports = function (app, express) {
     });
 
     // chrome extension hits this link to get info on all players
-    app.get("/api/init", function (req, res) {
+    // app.get("/api/init", function (req, res) {
 
-        fs.readFile(__dirname + "/../data/playerjson.txt", function(err,data){
-            var data = data + ''
-            var data = JSON.parse(data);
-            res.send(data);
-        })
+    //     fs.readFile(__dirname + "/../data/playerjson.txt", function(err,data){
+    //         var data = data + ''
+    //         var data = JSON.parse(data);
+    //         res.send(data);
+    //     })
 
-    });
+    // });
 
     app.get('/', function(req, res){
         // console.log(__dirname + '/client/index.html')
@@ -182,6 +182,7 @@ module.exports = function (app, express) {
     })
 	
     app.get("/auth/oauth", exports.oauth);
+
     app.get("/getID", exports.getID);
 
 	app.get("/auth/oauth/callback", exports.authorize);
