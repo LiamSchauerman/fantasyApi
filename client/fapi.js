@@ -1,8 +1,10 @@
 var call = function(){
 	$.get({
-	  url:"http://fantasysports.yahooapis.com/fantasy/v2/league/66969", 
+	  url:"http://fantasysports.yahooapis.com/fantasy/v2/game/nba", 
 	  success: function(data){
-	    console.log(data)
-	  }
+	  	cosole.log('in success');
+	    console.log(data);
+	  },
+
 	})
 }
