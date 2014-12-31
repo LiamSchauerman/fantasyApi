@@ -62,6 +62,21 @@ exports.myTeams = function(req, res) {
            
 };
 
+exports.getID = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api("http://fantasysports.yahooapis.com/fantasy/v2/game/nba")
+        .done(function(data){
+            res.json(data)
+        })
+}
+
+exports.myTeam = function(req, res) {
+    FantasySports
+        .request(req, res)
+        .api("http://fantasysports.yahooapis.com/fantasy/v2/team/TEAMKEY")
+}
+
 exports.myMatchups = function(req, res) {
     FantasySports
         .request(req, res)
@@ -83,7 +98,7 @@ exports.myUser = function(req, res) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            console.log(data);
+            res.json(data);
         });
 };
 
@@ -98,7 +113,7 @@ exports.myLeagueTeams = function(req, res) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            console.log(data);
+            res.json(data);
         });
 };
 
@@ -167,6 +182,7 @@ module.exports = function (app, express) {
     })
 	
     app.get("/auth/oauth", exports.oauth);
+    app.get("/getID", exports.getID);
 
 	app.get("/auth/oauth/callback", exports.authorize);
 	
