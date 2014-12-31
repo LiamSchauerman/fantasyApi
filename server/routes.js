@@ -75,7 +75,7 @@ exports.myMatchups = function(req, res) {
 exports.myUser = function(req, res) {
     FantasySports
         .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1?format=json')
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1')
         .done(function(data) {
             //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
 
@@ -83,7 +83,7 @@ exports.myUser = function(req, res) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            res.json(data);
+            console.log(data);
         });
 };
 
@@ -98,7 +98,7 @@ exports.myLeagueTeams = function(req, res) {
             //    if (value.league) leagues.push(value.league[0]);
             //});
             //console.log('leagues', leagues);
-            res.json(data);
+            console.log(data);
         });
 };
 
