@@ -89,6 +89,7 @@ exports.myMatchups = function(req, res) {
             // this is an array of objects, 1 for each stat
 
             // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
+            res.json(data)
             matchupTotals = data[0].matchup[0].teams[0].team[1].team_stats.stats
             var categoryCodes = {
                 9004003 : "FG%",
@@ -101,7 +102,7 @@ exports.myMatchups = function(req, res) {
                 17: "STL",
                 18: "BLK"
             }
-            res.json(matchupTotals);
+            // res.json(matchupTotals);
         });
 };
 
