@@ -107,7 +107,7 @@ exports.myMatchups = function(req, res) {
             // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
 
 
-            res.json(weeklyStats)
+            res.json(data.fantasy_content)
             // res.json(matchupTotals);
         });
 };
