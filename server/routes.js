@@ -86,14 +86,6 @@ exports.myMatchups = function(req, res) {
             var matchups = data.fantasy_content.team[1].matchups;
             var matchupTotals = data.fantasy_content.team[1].matchups[0].matchup[0].teams[0].team[1].team_stats.stats;
             var weeklyStats = {};
-            for( var i = 0; i < matchupTotals.length; i++ ) {
-                weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
-            }
-            // matchups --> matchups[0].matchup[0].teams[0].team[1].team_stats.stats is an array of objects
-            // get to matchups[0].matchup[0].teams[0].team[1].team_stats.stats
-            // this is an array of objects, 1 for each stat
-
-            // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
             var categoryCodes = {
                 9004003 : "FG%",
                 9007006 : "FT%",
@@ -105,6 +97,14 @@ exports.myMatchups = function(req, res) {
                 17: "STL",
                 18: "BLK"
             }
+            for( var i = 0; i < matchupTotals.length; i++ ) {
+                weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
+            }
+            // matchups --> matchups[0].matchup[0].teams[0].team[1].team_stats.stats is an array of objects
+            // get to matchups[0].matchup[0].teams[0].team[1].team_stats.stats
+            // this is an array of objects, 1 for each stat
+
+            // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
 
 
             res.json(weeklyStats)
