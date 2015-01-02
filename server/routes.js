@@ -123,6 +123,50 @@ exports.myMatchups = function(req, res) {
     });
 };
 
+exports.allMatchups = function(req, res) {
+  var weeklyStats;
+  var categoryCodes = {
+    9004003 : "FG%",
+    9007006 : "FT%",
+    10 : "3PTM",
+    12: "PTS",
+    13: "OREB",
+    15: "REB",
+    16: "AST",
+    17: "STL",
+    18: "BLK"
+  }
+  var allMatchups = {};
+  for( var curTeam = 1; curTeam < 13; curTeam++ ){
+    FantasySports
+      .request(req, res)
+      .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.'+ curTeam +'/matchups?format=json')
+      .done(function(data) {
+        fc = data.fantasy_content;
+
+        var teamResults = function(){
+          // return an array of objects;
+          var results = [];
+          for( var week = 0; week < 10; week ++){
+            weeklyStats = {};
+            var matchupTotals = fc.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
+            for( var i = 0; i < matchupTotals.length; i++ ) {
+              weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
+            }        
+            results.push(weeklyStats)
+          }
+          return results;
+        }
+
+        var val = teamResults();
+          
+        allMatchups[ team ] = [ val ];
+    });
+
+  }
+  res.json(allMatchups)
+};
+
 exports.myUser = function(req, res) {
     FantasySports
         .request(req, res)
