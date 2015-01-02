@@ -77,39 +77,65 @@ exports.getID = function(req, res) {
 //         .api("http://fantasysports.yahooapis.com/fantasy/v2/team/TEAMKEY")
 // }
 
+
+
 exports.myMatchups = function(req, res) {
-    FantasySports
-        .request(req, res)
-        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.1/matchups?format=json')
-        .done(function(data) {
+  FantasySports
+    .request(req, res)
+    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.1/matchups?format=json')
+    .done(function(data) {
+      var matchups = data.team[1].matchups;
+      var week = 0;
+      var matchupFinals = {}
+      var weeklyStats = {};
+      var categoryCodes = {
+        9004003 : "FG%",
+        9007006 : "FT%",
+        10 : "3PTM",
+        12: "PTS",
+        13: "OREB",
+        15: "REB",
+        16: "AST",
+        17: "STL",
+        18: "BLK"
+      }
+      
 
-            var matchups = data.fantasy_content.team[1].matchups;
-            var matchupTotals = data.fantasy_content.team[1].matchups[0].matchup[0].teams[0].team[1].team_stats.stats;
-            var weeklyStats = {};
-            var categoryCodes = {
-                9004003 : "FG%",
-                9007006 : "FT%",
-                10 : "3PTM",
-                12: "PTS",
-                13: "OREB",
-                15: "REB",
-                16: "AST",
-                17: "STL",
-                18: "BLK"
-            }
-            for( var i = 0; i < matchupTotals.length; i++ ) {
-                weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
-            }
-            // matchups --> matchups[0].matchup[0].teams[0].team[1].team_stats.stats is an array of objects
-            // get to matchups[0].matchup[0].teams[0].team[1].team_stats.stats
-            // this is an array of objects, 1 for each stat
-
-            // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
+      // TODO: redo these
+      var getMatchupTotals = function(week){
+        //return an object that has matchup totals for a given week
+        var matchupTotals = data.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
+        for( var i = 0; i < matchupTotals.length; i++ ) {
+          weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
+        }
+      }
+          
+      // var weekCount = 9;
+      // for( var j = 1; j <= weekCount; j++){
+      //   if( !matchupFinals[j] ){
+      //     matchupFinals[j] = [];
+      //   }
+      //   matchupFinals[j].push( getMatchupTotals(j) );
+      // }
 
 
-            res.json(data.fantasy_content)
-            // res.json(matchupTotals);
-        });
+
+        // matchups --> matchups[0].matchup[0].teams[0].team[1].team_stats.stats is an array of objects
+        // get to matchups[0].matchup[0].teams[0].team[1].team_stats.stats
+        // this is an array of objects, 1 for each stat
+
+        // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
+
+        // teamNameKey = {}
+        // function makeTeamNameKey(){
+        //     for( var i = 0; i < data.team.length; i++ ){
+        //         teamNameKey[ data.team[i][0].team_key ] = data.team[i][2].name
+        //     }
+        // }
+        // makeTeamNameKey();
+      res.json(data.fantasy_content)
+        // res.json(matchupTotals);
+    });
 };
 
 exports.myUser = function(req, res) {
