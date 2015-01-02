@@ -256,20 +256,22 @@ module.exports = function (app, express) {
 
     // });
 
-    app.get('/', function(req, res){
-        // console.log(__dirname + '/client/index.html')
-        res.render('index.html')
-    })
-	
-    app.get("/auth/oauth", exports.oauth);
+  app.get('/', function(req, res){
+      // console.log(__dirname + '/client/index.html')
+      res.render('index.html')
+  })
 
-    app.get("/getID", exports.getID);
+  app.get("/auth/oauth", exports.oauth);
+
+  app.get("/getID", exports.getID);
 
 	app.get("/auth/oauth/callback", exports.authorize);
 	
 	app.get("/myteams", exports.myTeams);
 	
 	app.get("/mymatchups", exports.myMatchups);
+
+  app.get("/allmatchups", exports.allMatchups);
 	
 	app.get("/mystandings", exports.myStandings);
 	
