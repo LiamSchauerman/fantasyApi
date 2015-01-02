@@ -84,7 +84,8 @@ exports.myMatchups = function(req, res) {
     .request(req, res)
     .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.1/matchups?format=json')
     .done(function(data) {
-      var matchups = data.team[1].matchups;
+      
+      // var matchups = data.team[1].matchups;
       var week = 0;
       var matchupFinals = {}
       var weeklyStats = {};
@@ -99,17 +100,18 @@ exports.myMatchups = function(req, res) {
         17: "STL",
         18: "BLK"
       }
-      
 
-      // TODO: redo these
-      var getMatchupTotals = function(week){
-        //return an object that has matchup totals for a given week
-        var matchupTotals = data.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
-        for( var i = 0; i < matchupTotals.length; i++ ) {
-          weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
-        }
-      }
+
+      // // TODO: redo these
+      // var getMatchupTotals = function(week){
+      //   //return an object that has matchup totals for a given week
+      //   var matchupTotals = data.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
+      //   for( var i = 0; i < matchupTotals.length; i++ ) {
+      //     weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
+      //   }
+      // }
           
+      res.json(data.fantasy_content)
       // var weekCount = 9;
       // for( var j = 1; j <= weekCount; j++){
       //   if( !matchupFinals[j] ){
@@ -133,7 +135,6 @@ exports.myMatchups = function(req, res) {
         //     }
         // }
         // makeTeamNameKey();
-      res.json(data.fantasy_content)
         // res.json(matchupTotals);
     });
 };
