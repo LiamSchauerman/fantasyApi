@@ -137,34 +137,37 @@ exports.allMatchups = function(req, res) {
     18: "BLK"
   }
   var allMatchups = {};
-  for( var curTeam = 1; curTeam < 13; curTeam++ ){
-    FantasySports
-      .request(req, res)
-      .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.'+ curTeam +'/matchups?format=json')
-      .done(function(data) {
-        fc = data.fantasy_content;
+  for( var curTeam = 1; curTeam <= 13; curTeam++ ){
+    if( curTeam !== 13){
+      FantasySports
+        .request(req, res)
+        .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.'+ curTeam +'/matchups?format=json')
+        .done(function(data) {
+          fc = data.fantasy_content;
 
-        var teamResults = function(){
-          // return an array of objects;
-          var results = [];
-          for( var week = 0; week < 10; week ++){
-            weeklyStats = {};
-            var matchupTotals = fc.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
-            for( var i = 0; i < matchupTotals.length; i++ ) {
-              weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
-            }        
-            results.push(weeklyStats)
+          var teamResults = function(){
+            // return an array of objects;
+            var results = [];
+            for( var week = 0; week < 10; week ++){
+              weeklyStats = {};
+              var matchupTotals = fc.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
+              for( var i = 0; i < matchupTotals.length; i++ ) {
+                weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
+              }        
+              results.push(weeklyStats)
+            }
+            return results;
           }
-          return results;
-        }
 
-        var val = teamResults();
-          
-        allMatchups[ curTeam ] = [ val ];
-    });
-
+          var val = teamResults();
+            
+          allMatchups[ curTeam ] = [ val ];
+      });
+    }
+    if( curTeam === 13 ){
+      res.json(allMatchups)
+    }
   }
-  res.json(allMatchups)
 };
 
 exports.myUser = function(req, res) {
