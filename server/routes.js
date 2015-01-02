@@ -88,9 +88,7 @@ exports.myMatchups = function(req, res) {
     .done(function(data) {
 
       // var matchups = data.team[1].matchups;
-      var week = 0;
-      var matchupFinals = {}
-      var weeklyStats = {};
+      var weeklyStats;
       var categoryCodes = {
         9004003 : "FG%",
         9007006 : "FT%",
@@ -103,7 +101,7 @@ exports.myMatchups = function(req, res) {
         18: "BLK"
       }
 
-      // fc = data.fantasy_content;
+      fc = data.fantasy_content;
 
       var teamResults = function(){
         // return an array of objects;
@@ -119,42 +117,9 @@ exports.myMatchups = function(req, res) {
         return results;
       }
 
-
-      // // TODO: redo these
-      // var getMatchupTotals = function(week){
-      //   //return an object that has matchup totals for a given week
-      //   var matchupTotals = data.team[1].matchups[week].matchup[0].teams[0].team[1].team_stats.stats;
-      //   for( var i = 0; i < matchupTotals.length; i++ ) {
-      //     weeklyStats[ categoryCodes[ matchupTotals[i].stat.stat_id ] ] = matchupTotals[i].stat.value;
-      //   }
-      // }
       var val = teamResults();
           
       res.json(val)
-      // var weekCount = 9;
-      // for( var j = 1; j <= weekCount; j++){
-      //   if( !matchupFinals[j] ){
-      //     matchupFinals[j] = [];
-      //   }
-      //   matchupFinals[j].push( getMatchupTotals(j) );
-      // }
-
-
-
-        // matchups --> matchups[0].matchup[0].teams[0].team[1].team_stats.stats is an array of objects
-        // get to matchups[0].matchup[0].teams[0].team[1].team_stats.stats
-        // this is an array of objects, 1 for each stat
-
-        // matchups[0].matchup[0].teams[0].team[1].team_stats.stats[]
-
-        // teamNameKey = {}
-        // function makeTeamNameKey(){
-        //     for( var i = 0; i < data.team.length; i++ ){
-        //         teamNameKey[ data.team[i][0].team_key ] = data.team[i][2].name
-        //     }
-        // }
-        // makeTeamNameKey();
-        // res.json(matchupTotals);
     });
 };
 
