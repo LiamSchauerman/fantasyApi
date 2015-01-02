@@ -160,7 +160,7 @@ exports.allMatchups = function(req, res) {
 
         var val = teamResults();
           
-        allMatchups[ team ] = [ val ];
+        allMatchups[ curTeam ] = [ val ];
     });
 
   }
