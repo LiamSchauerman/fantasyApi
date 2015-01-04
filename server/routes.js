@@ -161,7 +161,7 @@ exports.allMatchups = function(req, res) {
       .done(function(data) {
         fc = data.fantasy_content;
         var val = teamResults();
-        allMatchups[ curTeam ] = val;
+        allMatchups[ teamIndex ] = val;
         teamIndex++;
         if(teamIndex < 13){
           getTeamData(teamIndex, callback);
