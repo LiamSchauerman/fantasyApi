@@ -135,10 +135,10 @@ exports.allMatchups = function(req, res) {
     17: "STL",
     18: "BLK"
   }
-  fc = data.fantasy_content;
+  var fc;
 
   var allMatchups = {};
-  var teamResults = function(){
+  var teamResults = function(fc){
     // return an array of objects;
     var results = [];
     for( var week = 0; week < 10; week ++){
@@ -160,7 +160,7 @@ exports.allMatchups = function(req, res) {
       .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.'+ teamIndex +'/matchups?format=json')
       .done(function(data) {
         fc = data.fantasy_content;
-        var val = teamResults();
+        var val = teamResults(fc);
         allMatchups[ teamIndex ] = val;
         teamIndex++;
         if(teamIndex < 13){
