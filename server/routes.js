@@ -166,7 +166,7 @@ exports.allMatchups = function(req, res) {
         if(teamIndex < 13){
           getTeamData(teamIndex, callback);
         } else {
-          calback();
+          callback();
         }
       });
   }
