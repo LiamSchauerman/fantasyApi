@@ -9,7 +9,6 @@ var call = function(){
 				console.log(data)
 			},
 			error: function(obj, str, err){
-				if( err ) throw err;
 				console.log(str);
 			}
 	})
