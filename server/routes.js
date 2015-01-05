@@ -172,7 +172,8 @@ exports.allMatchups = function(req, res) {
   }
 
   getTeamData(1, function(){
-    res.json(allMatchups)
+    res.write(allMatchups);
+    res.end();
   })
 };
 
