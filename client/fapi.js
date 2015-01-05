@@ -1,7 +1,10 @@
 var call = function(){
 	console.log('test');
-	$.get("http://fantasybballapi.herokuapp.com/allmatchups", function(data){
-		console.log(data)
+	$.get({
+			url: "http://fantasybballapi.herokuapp.com/allmatchups", 
+			success: function(data){
+				console.log(data)
+			}
 	})
 }
 
