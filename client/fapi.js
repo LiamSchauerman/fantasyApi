@@ -3,7 +3,7 @@ var call = function(){
 	$.ajax({
 			type: "GET",
 			url: "http://fantasybballapi.herokuapp.com/allmatchups", 
-			dataType: "jsonp",
+			dataType: "json",
 			success: function(data){
 				console.log('success');
 				console.log(data)
