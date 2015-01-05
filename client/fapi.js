@@ -5,7 +5,11 @@ var call = function(){
 			url: "http://fantasybballapi.herokuapp.com/allmatchups", 
 			dataType: "jsonp",
 			success: function(data){
+				console.log('success');
 				console.log(data)
+			},
+			error: function(error){
+				console.log('error', error)
 			}
 	})
 }
