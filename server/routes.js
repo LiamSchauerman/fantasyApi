@@ -265,6 +265,11 @@ module.exports = function (app, express) {
 
     // });
 
+  app.get('/', function (req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      next();
+  });
   app.get('/', function(req, res){
       // console.log(__dirname + '/client/index.html')
       res.render('index.html')

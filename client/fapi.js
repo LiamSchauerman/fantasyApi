@@ -1,6 +1,6 @@
 var call = function(){
 	console.log('test');
-	$.get("http://yahoofantasyapi.herokuapp.com/allmatchups", function(data){
+	$.get("http://fantasybballapi.herokuapp.com/allmatchups", function(data){
 		console.log(data)
 	})
 }
