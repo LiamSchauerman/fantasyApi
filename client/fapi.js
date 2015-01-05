@@ -8,8 +8,9 @@ var call = function(){
 				console.log('success');
 				console.log(data)
 			},
-			error: function(error){
-				if( error ) throw error
+			error: function(obj, str, err){
+				if( err ) throw err;
+				console.log(str);
 			}
 	})
 }
