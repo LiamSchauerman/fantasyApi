@@ -9,7 +9,7 @@ var call = function(){
 				console.log(data)
 			},
 			error: function(error){
-				console.log('error', error)
+				if( error ) throw error
 			}
 	})
 }
