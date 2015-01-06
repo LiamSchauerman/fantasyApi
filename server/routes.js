@@ -152,7 +152,6 @@ exports.allMatchups = function(req, res) {
     return results;
   }
 
-
   var getTeamData = function(teamIndex, callback){
     teamIndex = teamIndex || 1;
     FantasySports

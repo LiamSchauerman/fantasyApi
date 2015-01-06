@@ -5,10 +5,8 @@ var url = require('url');
 app = express();
 app.engine('html', require('ejs').renderFile);
 app.set('views', __dirname + '/client');
+
 routes(app, express);
-
-
-
 
 var port = process.env.PORT || 8000;
 app.listen(port, function(){
