@@ -74,7 +74,7 @@ var addTeamToChart = function(teamIndex, stat){
         return (scale(max, d[stat])+"px"); })
       .style("left", function(d, i){ return i*xwidth +"px"; })
       .style("top", function(d, i){ return height - scale(max, d[stat])+"px"})
-  bars.transition().duration(250) // total shots
+  bars.transition().duration(100) // total shots
     .attr("class", 'bar')
     .style("padding-left", xPadding)
     .style("padding-right", xPadding)
