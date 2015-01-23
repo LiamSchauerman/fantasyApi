@@ -20,7 +20,6 @@ var teamStats = function(){
 };
 
 // BAR GRAPH SECTION
-// teamStatsByCategory will add a line
 var getTeamMax = function(teamIndex, stat, data){
   // debugger;
 	teamIndex = teamIndex || "1";
