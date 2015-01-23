@@ -59,7 +59,6 @@ var addTeamToChart = function(teamIndex, stat){
   bars.exit().remove()
   // scale the max of the current stat to the height of 600;
   var max = getTeamMax(teamIndex, stat, fantasyContent);
-  console.log("line 61",max)
   var scale = function(max, val){
     console.log("line63, inside scale",max)
     return (val/max)*600;
@@ -81,8 +80,6 @@ var addTeamToChart = function(teamIndex, stat){
     .style("width", barWidth+"px")
     // .transition.duration(125)
     .style("height", function(d) { 
-      // console.log(d[stat]);
-      // console.log(scale(max, d[stat]));
       return (scale(max, d[stat])+"px"); })
     .style("left", function(d, i){ return i*xwidth +"px"; })
     .style("top", function(d, i){ return height - scale(max, d[stat])+"px"})
