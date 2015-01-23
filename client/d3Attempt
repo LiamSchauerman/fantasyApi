@@ -1,0 +1,54 @@
+//setting 3d scene
+// // console.log(fantasyContent)
+// // var threeWidth = 400,
+// // 	threeHeight = 300;
+// // var viewAngle = 45,
+// // 	aspect = threeWidth / threeHeight,
+// // 	near = 0.1,
+// // 	far = 10000;
+// // var $chart = $('#chart');
+// // var renderer = new THREE.WebGLRenderer();
+// // var camera = new THREE.PerspectiveCamera(viewAngle, aspect, near, far);
+// // var scene = new THREE.Scene();
+// // scene.add(camera);
+// // camera.position.y = 150;
+// // camera.position.z = 150;
+// // renderer.setSize(threeWidth, threeHeight);
+// // $chart.append(renderer.domElement);
+
+// // bar class;
+// var Bar = function(height, x, y, z){
+// 	this.height = height;
+// 	this.geometry = new THREE.BoxGeometry( 10, this.height, 10 );
+// 	this.material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
+// 	var mesh = new THREE.Mesh( this.geometry, this.material );
+// 	mesh.position.x = x;
+// 	mesh.position.y = y;
+// 	mesh.position.z = z;
+// 	scene.add( mesh );
+// }
+// var x =  new Bar(50, 0, 0, 0);
+// var y =  new Bar(50, 30, 0, 0);
+
+// d3.select
+// // var geometry = new THREE.BoxGeometry( 10, 100, 10 );
+// // var material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
+// // var mesh = new THREE.Mesh( geometry, material );
+// // scene.add( cube );
+
+// var pointLight =
+//   new THREE.PointLight(0xFFFFFF);
+
+// // // set its position
+// // pointLight.position.x = 10;
+// // pointLight.position.y = 50;
+// // pointLight.position.z = 130;
+
+// // // add to the scene
+// // scene.add(pointLight);
+// camera.lookAt( new THREE.Vector3( 0, -25, 0 ) )
+// function render() {
+// 	requestAnimationFrame( render );
+// 	renderer.render( scene, camera );
+// }
+// render();

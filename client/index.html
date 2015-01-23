@@ -4,17 +4,30 @@
     <meta charset="utf-8" />
     <title>TEST!</title>
     <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel='stylesheet' type='css' href='style.css'>
+    <script src='jquery.js'></script>
+    <script type="text/javascript" src="../bower_components/d3/d3.min.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" src="fapi.js"></script>
   </head>
   <body>
     <div id='container'>
       <div id='header'>Yahoo Fantasy API</div>
       <button id='testButton' onclick="teamStats()" >Submit</button>
       <a href='/allmatchups'>all matchups</a>
-      <div id='chart'><h1><span>A Rebounding Season</span> Matchup totals</h1>
+      <h4 onclick="addTeamToChart(1, 'PTS')">PTS</h4>
+      <h4 onclick="addTeamToChart(1, 'REB')">REB</h4>
+      <h4 onclick="addTeamToChart(1, 'OREB')">OREB</h4>
+      <h4 onclick="addTeamToChart(1, 'STL')">STL</h4>
+      <h4 onclick="addTeamToChart(1, '3PTM')">3PTM</h4>
+      <h4 onclick="addTeamToChart(1, 'BLK')">BLK</h4>
+      <h4 onclick="addTeamToChart(1, 'AST')">AST</h4>
+      <hr />
 
+      <div id='chart'>
+<!--         <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" id="svgContainer">
+        </svg> -->
+      </div>
     </div>
   </body>
-  <script type="text/javascript" src="d3.js"></script>
-  <script type="text/javascript" src="fapi.js"></script>
 </html>

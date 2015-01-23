@@ -1,0 +1,22 @@
+{
+  "name": "fantasyApi",
+  "version": "0.0.1",
+  "homepage": "http://yahoofantasyapi.herokuapp.com",
+  "authors": [
+    "Liam Schauerman <ljschauerman@gmail.com>"
+  ],
+  "description": "yahoofantasyapi",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "threejs": "*",
+    "d3": "~3.5.3"
+  }
+}

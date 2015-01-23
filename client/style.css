@@ -1,14 +1,22 @@
 #chart {
-  background-color: orange;
-  padding:5px;
-  float:left;
+  background-color: gold;
+  width:800px;
+  height:600px;
+  position:relative;
+  margin-top:30px;
 }
 
-/*line {
-  stroke: ;
-  text-align:left;
-  margin-right:5px;
-  margin-top: 6px;
-  margin-bottom:0px;
+h4 {
+  float: left;
+  padding: 10px;
+  margin-bottom: 20px;
 }
-*/
+.bar {
+  background-color: black;
+  text-align:left;
+  position: absolute;
+}
+
+* {
+  border: 1px solid green;
+}
