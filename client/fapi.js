@@ -1,5 +1,8 @@
-// 
 var matchupResults = {};
+var addTeamToChart = function(){
+  return
+}
+//ajax request to get all matchup results. all teams and all weeks
 var teamStats = function(){
 	console.log('test');
 	$.ajax({
@@ -20,132 +23,97 @@ var teamStats = function(){
 };
 
 // BAR GRAPH SECTION
-var getTeamMax = function(teamIndex, stat, data){
-  // debugger;
-	teamIndex = teamIndex || "1";
-	var max = 0;
-	for( var i=0; i<data[teamIndex].length; i++ ){
-    var currentValue = data[teamIndex][i][stat];
-		if( parseInt(currentValue) > parseInt(max) ){
-			max = data[teamIndex][i][stat];
-		}
-	}
-	return max;
-};
+
+// fantasyContent is an object containing a property index for each team, 1-12
 
 
-// //add svg element
-var width = 800;
-var height = 600;
-// d3.select('#chart')
-//   // .append('svg')
-//     .attr('width', width)
-//     .attr('height', height)
+//this will print scoring totals from week 9
+$(document).on('ready', function(){
+  var week = 9;
+  var stat = "PTS";
+  var height = 500
 
-
-//allocate space for n number of weeks
-var weekCount = fantasyContent[1].length;
-var xwidth = 800 / weekCount;
-console.log("x: "+xwidth);
-// take 15% of this for padding on each side
-var xPadding = 0.3*xwidth;
-var barWidth = xwidth - 2*xPadding;
-
-
-var addTeamToChart = function(teamIndex, stat){
-  // var $g = $("svg").attr('xmlns', "http://www.w3.org/2000/svg").append('<g>')
-  var team = fantasyContent[teamIndex];
-  var bars = d3.select('#chart').selectAll('.bar').data(team);
-  bars.exit().remove()
-  // scale the max of the current stat to the height of 600;
-  var max = getTeamMax(teamIndex, stat, fantasyContent);
-  console.log("line 61",max)
-  var scale = function(max, val){
-    console.log("line63, inside scale",max)
-    return (val/max)*600;
+  var svg = d3.select('svg')
+    .attr({
+      width: 500,
+      height: height
+    })
+  var teamCount = Object.keys(fantasyContent);
+  var data = [];
+  function getData(){
+    $.each(teamCount, function(team, i){
+      data.push(fantasyContent[team+1][week][stat])
+    });
+    data.sort(function(a,b){
+      return b-a;
+    })
   }
-  bars.enter()
-    .append("div") // total shots
-      .attr("class", 'bar')
-      .style("width", barWidth+"px")
-      .style("height", function(d) { 
-        // console.log(d[stat]);
-        // console.log(scale(max, d[stat]));
-        return (scale(max, d[stat])+"px"); })
-      .style("left", function(d, i){ return i*xwidth +"px"; })
-      .style("top", function(d, i){ return height - scale(max, d[stat])+"px"})
-  bars.transition().duration(100) // total shots
-    .attr("class", 'bar')
-    .style("padding-left", xPadding)
-    .style("padding-right", xPadding)
-    .style("width", barWidth+"px")
-    // .transition.duration(125)
-    .style("height", function(d) { 
-      // console.log(d[stat]);
-      // console.log(scale(max, d[stat]));
-      return (scale(max, d[stat])+"px"); })
-    .style("left", function(d, i){ return i*xwidth +"px"; })
-    .style("top", function(d, i){ return height - scale(max, d[stat])+"px"})
+  getData();
+
+  var teamData = [];
+  var weekCount = [0,1,2,3,4,5,6,7,8,9]
+  function getTeamByWeek(teamIndex){
+    $.each(weekCount, function(week, i){
+      console.log(week)
+      teamData.push(fantasyContent[teamIndex][week][stat])
+    })
+  }
+  getTeamByWeek(1);
+  console.log(data)
+  // now data is an array of points
+  var line = d3.svg.line()
+    .x(function(d,i){ return xScale(i)})
+    .y(function(d,i){return yScaleLine(d)})
 
 
-  // $("#chart").html($("#chart").html());
-}
+  var maxScore = d3.max(teamData)
+  var yScale = d3.scale.linear()
+    .domain([0, maxScore])
+    .range([0,height])
 
-addTeamToChart(1, "PTS");
-$("#chart").on('click', '.bar', function(){
-  console.log($(this).style('height'))
+  var yScaleLine = d3.scale.linear()
+    .domain([0, maxScore])
+    .range([height,0])
+
+  var xScale = d3.scale.ordinal()
+    .domain(d3.range(teamData.length))
+    .rangeBands([0,500], 0.7)
+
+  var axis = d3.svg.axis()
+    .scale(yScaleLine)
+    .orient("right")
+    .ticks(4)
+    // .tickValues([100, 200, 300, 400, 500])
+
+  var g = svg.append('g')
+  axis(g);
+    g.attr("transform", "translate(0, 0)");
+    g.selectAll("path")
+      .style({fill: "none", stroke: "#000"})
+    g.selectAll("line")
+      .style({stroke: "#000"})
+
+
+  g.append("path")
+    .attr("d", line(teamData))
+    .style({
+      fill: "none",
+      stroke: "#000"
+    })
+
+  var rectangles = g.selectAll("rect")
+    .data(teamData);
+
+  rectangles.enter()
+    .append("rect")
+    .attr({
+      width: xScale.rangeBand(),
+      height: function(d,i){ return yScale(d)},
+      x: function(d,i){ return xScale(i)},
+      y: function(d,i){ return height-yScale(d)}
+    })
+    .on('mouseover', function(d){
+      console.log(d)
+    })
+
 })
-
-var chartTeamStatsByCategory = function(data, stat, teamIndex, statMax){
-  console.log( 'making chart' )
-  console.log( data )
-  var weekIndex;
-  var teamData = data[teamIndex] // array of 10 weeks of data
-
-  // set ratio instead of always *setWidthpx // total width is 820px
-  // largest row should be 800 px
-  // coefficient = 800/mostMade
-  var widthInterval = 800 / (weekCount+1); // spacing between ticks
-  var setHeight = 800;
-
-  // JOIN
-
-  lines = d3.select("#chart").selectAll(".line")
-        .data(data)
-
-  // exit
-  // console.log(bars.exit())
-
-  lines.exit()
-    .style('opacity', 1)
-    .transition()
-      .duration(750)
-      .style('opacity', 0)
-    .remove()
-
-  // UPDATE
-  // lines
-  // .transition().duration(500)
-  //   .style({
-  //     width: function(d) { return (d.shotsMade+d.shotsMissed) * setWidth + "px"; }, }) .select('.madeShots') // shots made
-  //     .attr('class', 'madeShots')
-  //     .style({
-  //       width: function(d) { return d.shotsMade*setWidth + 'px' } }) .select('.text') // text about player and shots
-  //     .attr('class','text')
-  //     .text(function(d) {
-  //       return d.name + ': ' + d.shotsMade+'/'+(d.shotsMissed+d.shotsMade);
-  //     })
-
-  //ENTER
-  var containerBars = bars.enter()
-    .append("div") // total shots
-      .style('width', '0px')
-      .attr("class", 'bar')
-
-    containerBars.transition()
-      .duration(750)
-      .style({ width: function(d) { return (d.shotsMade+d.shotsMissed) * setWidth + "px"; }, })
-
-}; // end chartTeamStatsByCategory();
-
-
