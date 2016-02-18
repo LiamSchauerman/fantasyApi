@@ -6,10 +6,10 @@ var FantasySports = require('fantasysports');
 FantasySports.options({
   "accessTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_request_token",
   "requestTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_token",
-  "oauthKey": "dj0yJmk9TFYzeWVhZHE5OXpBJmQ9WVdrOVIwOHpaVEE1TkhNbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0yNQ--",
-  "oauthSecret": "c9f06a9871d777c5af8e539dd44808688b24e63a",
+  "oauthKey": "dj0yJmk9a1NDQnBPREd1Q3E2JmQ9WVdrOU1ERklZMWhXTjJzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1hNg--",
+  "oauthSecret": "000ac184dd8006b6071ea14bee64957aa03c20b5",
   "version": "1.0",
-  "callback": "http://ec2-54-153-50-58.us-west-1.compute.amazonaws.com/auth/oauth/callback",
+  "callback": "http://ec2-52-53-216-130.us-west-1.compute.amazonaws.com/auth/oauth/callback",
   "encryption": "HMAC-SHA1"
 });
 
