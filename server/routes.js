@@ -222,7 +222,7 @@ exports.myStandings = function (req, res) {
 exports.myTeam = function (req, res) {
   FantasySports
     .request(req, res)
-    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.91924.t.5?format=json')
+    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.51871.t.1?format=json')
     .done(function (data) {
       //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
       var league;
