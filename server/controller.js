@@ -217,20 +217,20 @@ exports.myStandings = function (req, res) {
     });
 };
 
+exports.queryTeam = function (req, res) {
+  console.log(req.params);
+  console.log(req.query);
+  var teamID = req.params.id || 1;
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '?format=json'
+  FantasySports.request(req, res).api(apiString).done(function (data) {
+    res.json(data);
+  })
+};
 exports.myTeam = function (req, res) {
   FantasySports
     .request(req, res)
     .api('http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.1?format=json')
     .done(function (data) {
-      //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
-      var league;
-      console.log('standings6', data.fantasy_content.league);
-      console.log('standings7', data.fantasy_content.league);
-      console.log('standings8', data.fantasy_content.league);
-      //_.each(leagueData, function(value) {
-      //    if (value.league) leagues.push(value.league[0]);
-      //});
-      //console.log('leagues', leagues);
       res.json(data);
     });
 };

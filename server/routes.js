@@ -40,6 +40,7 @@ module.exports = function (app, express) {
     res.render('index.html')
   });
 
+  app.get('/team/:id', controller.queryTeam)
   app.get("/auth/oauth", controller.oauth);
 
   app.get("/getID", controller.getID);
