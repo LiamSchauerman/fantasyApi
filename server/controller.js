@@ -244,7 +244,6 @@ exports.getMatchupByWeek = function (req, res) {
   var week = req.params.week
   var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.'+teamID+'/matchups?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
-    res.json(data);
     var myTeamData = data.fantasy_content.team[teamID].matchups[week-1].matchup[0].teams
     res.json(myTeamData);
   })

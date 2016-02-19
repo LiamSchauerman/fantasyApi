@@ -42,7 +42,7 @@ module.exports = function (app, express) {
 
   app.get('/team/:id', controller.queryTeam);
   app.get('/matchups/:id', controller.getMatchup);
-  app.get('/matchup/week/:week', controller.getMatchupByWeek)
+  app.get('/matchup/week/:week', controller.getMatchupByWeek);
   app.get('/allTeams', controller.allTeams);
   app.get("/auth/oauth", controller.oauth);
 
