@@ -227,13 +227,14 @@ exports.queryTeam = function (req, res) {
   })
 };
 exports.allTeams = function (req, res) {
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871/teams?format=json'
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871/teams?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
   })
 };
 exports.getMatchups = function (req, res) {
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871/matchups?format=json'
+  var teamID = req.params.id || 1;
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.'+teamID+'/matchups?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
   })
