@@ -226,6 +226,18 @@ exports.queryTeam = function (req, res) {
     res.json(data);
   })
 };
+exports.allTeams = function (req, res) {
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871/teams?format=json'
+  FantasySports.request(req, res).api(apiString).done(function (data) {
+    res.json(data);
+  })
+};
+exports.getMatchups = function (req, res) {
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871/matchups?format=json'
+  FantasySports.request(req, res).api(apiString).done(function (data) {
+    res.json(data);
+  })
+};
 exports.myTeam = function (req, res) {
   FantasySports
     .request(req, res)

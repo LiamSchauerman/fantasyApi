@@ -40,11 +40,12 @@ module.exports = function (app, express) {
     res.render('index.html')
   });
 
-  app.get('/team/:id', controller.queryTeam)
+  app.get('/team/:id', controller.queryTeam);
+  app.get('/matchups', controller.getMatchups);
+  app.get('/allTeams', controller.allTeams);
   app.get("/auth/oauth", controller.oauth);
 
   app.get("/getID", controller.getID);
-
   app.get("/auth/oauth/callback", controller.authorize);
 
   app.get("/myteams", controller.myTeams);
