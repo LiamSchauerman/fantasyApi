@@ -232,7 +232,7 @@ exports.allTeams = function (req, res) {
     res.json(data);
   })
 };
-exports.getMatchups = function (req, res) {
+exports.getMatchup = function (req, res) {
   var teamID = req.params.id || 1;
   var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.'+teamID+'/matchups?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {

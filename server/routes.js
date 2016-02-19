@@ -41,7 +41,7 @@ module.exports = function (app, express) {
   });
 
   app.get('/team/:id', controller.queryTeam);
-  app.get('/matchups', controller.getMatchups);
+  app.get('/matchups/:id', controller.getMatchup);
   app.get('/allTeams', controller.allTeams);
   app.get("/auth/oauth", controller.oauth);
 
