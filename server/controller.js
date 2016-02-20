@@ -245,11 +245,18 @@ exports.getMatchupByWeek = function (req, res) {
   var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.'+teamID+'/matchups?format=json';
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
-    //var r = data.fantasy_content.team[teamID].matchups[week-1].matchup[0].teams;
     //var teamname = r[0].team[0][2].name;
 
-    //var stats = r[0].team[1].team_stats.stats;
-    res.json({fc: data.fantasy_content});
+    if(teamID == 1){
+      var r = data.fantasy_content.team[teamID].matchups[week-1].matchup[0].teams;
+      var teamname = r[0].team[0][2].name;
+      var stats = r[0].team[1].team_stats.stats;
+
+    } else {
+      var teamname = data.fantasy_content.team[0][2].name;
+      var stats = data.fantasy_content.team[1].matchups[week-1].matchup[0].teams[0].team[1].team_stats.stats
+    }
+    res.json({teamname: teamname, stats:stats });
   })
 };
 exports.myTeam = function (req, res) {
