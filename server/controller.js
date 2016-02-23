@@ -269,9 +269,7 @@ var cache = {};
 exports.getAllMatchupsForTeam = function (req, res) {
   var teamID = req.params.id || 1;
   weeks = 18;
-  cache[teamID] = {
-    team : teamname
-  };
+
   var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
@@ -290,6 +288,7 @@ exports.getAllMatchupsForTeam = function (req, res) {
 
       cache[teamID][i] = stats;
     }
+    cache[teamID].teamname = teamname;
 
     res.json(cache);
 
