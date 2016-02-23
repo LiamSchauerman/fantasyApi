@@ -42,6 +42,7 @@ module.exports = function (app, express) {
 
   app.get('/team/:id', controller.queryTeam);
   app.get('/matchups/:id', controller.getMatchup);
+  app.get('/matchups/:id', controller.getAllMatchupsForTeam )
   app.get('/matchup/:id/week/:week', controller.getMatchupByWeek);
   app.get('/allTeams', controller.allTeams);
   app.get("/auth/oauth", controller.oauth);
@@ -49,18 +50,25 @@ module.exports = function (app, express) {
   app.get("/getID", controller.getID);
   app.get("/auth/oauth/callback", controller.authorize);
 
-  app.get("/myteams", controller.myTeams);
 
-  app.get("/mymatchups", controller.myMatchups);
 
-  app.get("/allmatchups", controller.allMatchups);
 
-  app.get("/mystandings", controller.myStandings);
 
-  app.get("/myteam", controller.myTeam);
+  //
+  //app.get("/myteams", controller.myTeams);
+  //
+  //app.get("/mymatchups", controller.myMatchups);
+  //
+  //app.get("/allmatchups", controller.allMatchups);
+  //
+  //app.get("/mystandings", controller.myStandings);
+  //
+  //app.get("/myteam", controller.myTeam);
+  //
+  //app.get("/myuser", controller.myUser);
+  //
+  //app.get("/myleagueteams", controller.myLeagueTeams);
 
-  app.get("/myuser", controller.myUser);
 
-  app.get("/myleagueteams", controller.myLeagueTeams);
 
 };

@@ -234,30 +234,66 @@ exports.allTeams = function (req, res) {
 };
 exports.getMatchup = function (req, res) {
   var teamID = req.params.id || 1;
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.'+teamID+'/matchups?format=json';
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
   })
 };
+var matchupCache = {};
+// $teamname
 exports.getMatchupByWeek = function (req, res) {
   var teamID = req.params.id || 1;
   var week = req.params.week;
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.'+teamID+'/matchups?format=json';
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
     //var teamname = r[0].team[0][2].name;
 
-    if(teamID == 1){
-      var r = data.fantasy_content.team[teamID].matchups[week-1].matchup[0].teams;
+    if (teamID == 1) {
+      var r = data.fantasy_content.team[teamID].matchups[week - 1].matchup[0].teams;
       var teamname = r[0].team[0][2].name;
       var stats = r[0].team[1].team_stats.stats;
 
     } else {
       var teamname = data.fantasy_content.team[0][2].name;
-      var stats = data.fantasy_content.team[1].matchups[week-1].matchup[0].teams[0].team[1].team_stats.stats
+      var stats = data.fantasy_content.team[1].matchups[week - 1].matchup[0].teams[0].team[1].team_stats.stats
     }
-    res.json({teamname: teamname, stats:stats });
+    res.json({teamname: teamname, stats: stats});
   })
+};
+var cache = {};
+
+// teamID : {
+// "0" : stats
+//}
+exports.getAllMatchupsForTeam = function (req, res) {
+  var teamID = req.params.id || 1;
+  weeks = 18;
+  cache[teamID] = {
+    team : teamname
+  };
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
+  console.log(apiString);
+  FantasySports.request(req, res).api(apiString).done(function (data) {
+
+    for( var i = 0; i < weeks; i++){
+
+      if (teamID == 1) {
+        var r = data.fantasy_content.team[teamID].matchups[week - 1].matchup[0].teams;
+        var teamname = r[0].team[0][2].name;
+        var stats = r[0].team[1].team_stats.stats;
+
+      } else {
+        var teamname = data.fantasy_content.team[0][2].name;
+        var stats = data.fantasy_content.team[1].matchups[week - 1].matchup[0].teams[0].team[1].team_stats.stats
+      }
+
+      cache[teamID][i] = stats;
+    }
+
+    res.json(cache);
+
+  });
 };
 exports.myTeam = function (req, res) {
   FantasySports
@@ -266,4 +302,22 @@ exports.myTeam = function (req, res) {
     .done(function (data) {
       res.json(data);
     });
+};
+function asyncLoop(start, lim, cb, doneCb) {
+  var i = start;
+  next();
+
+  function next(e) {
+    var curr = i;
+    if (e)
+      doneCb(e, i);
+    else {
+      i++;
+      if (curr < lim) {
+        cb(curr, next);
+      } else {
+        doneCb()
+      }
+    }
+  }
 };
