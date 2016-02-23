@@ -41,7 +41,6 @@ module.exports = function (app, express) {
   });
 
   app.get('/team/:id', controller.queryTeam);
-  app.get('/matchups/:id', controller.getMatchup);
   app.get('/matchups/:id', controller.getAllMatchupsForTeam )
   app.get('/matchup/:id/week/:week', controller.getMatchupByWeek);
   app.get('/allTeams', controller.allTeams);
