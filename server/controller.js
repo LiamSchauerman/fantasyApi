@@ -274,19 +274,22 @@ exports.getAllMatchupsForTeam = function (req, res) {
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
 
-    for( var i = 0; i < weeks; i++){
+    for( var week = 0; week < weeks; week++){
 
       if (teamID == 1) {
-        var r = data.fantasy_content.team[teamID].matchups[week - 1].matchup[0].teams;
-        var teamname = r[0].team[0][2].name;
-        var stats = r[0].team[1].team_stats.stats;
+        if(data.fantasy_content && data.fantasy_content.team && data.fantasy_content.team[teamID]){
+          var r = data.fantasy_content.team[teamID].matchups[week - 1].matchup[0].teams;
+          var teamname = r[0].team[0][2].name;
+          var stats = r[0].team[1].team_stats.stats;
+
+        }
 
       } else {
         var teamname = data.fantasy_content.team[0][2].name;
         var stats = data.fantasy_content.team[1].matchups[week - 1].matchup[0].teams[0].team[1].team_stats.stats
       }
 
-      cache[teamID][i] = stats;
+      cache[teamID][week] = stats;
     }
     cache[teamID].teamname = teamname;
 
