@@ -269,12 +269,12 @@ var cache = {};
 exports.getAllMatchupsForTeam = function (req, res) {
   var teamID = req.params.id || 1;
   weeks = 18;
-
+  cache[teamID] = {};
   var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
 
-    for( var week = 0; week < weeks; week++){
+    for( var week = 1; week < weeks; week++){
 
       if (teamID == 1) {
         if(data.fantasy_content && data.fantasy_content.team && data.fantasy_content.team[teamID]){
