@@ -13,11 +13,13 @@ FantasySports.options({
 
 // app.get("/auth/oauth")
 exports.oauth = function (req, res) {
+  console.log('start auth');
   FantasySports.startAuth(req, res);
 };
 
 // app.get("/auth/oauth/callback")
 exports.authorize = function (req, res) {
+  console.log('end auth');
   FantasySports.endAuth(req, res);
 };
 
