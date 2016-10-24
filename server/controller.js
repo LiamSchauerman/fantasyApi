@@ -1,13 +1,13 @@
-var fs = require('fs')
+var fs = require('fs');
 
 var FantasySports = require('fantasysports');
 FantasySports.options({
   "accessTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_request_token",
   "requestTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_token",
-  "oauthKey": "dj0yJmk9S3JocmFKQ0JJNjhTJmQ9WVdrOVdEUjBURVJXTXpRbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD00Mg--",
-  "oauthSecret": "d23d7d8656ca94bc7e3426304a37b37f09197b3b",
+  "oauthKey": "dj0yJmk9QmFJRnAxeG03VEhGJmQ9WVdrOVUzSnZlbVl6TjJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD04OQ--",
+  "oauthSecret": "f1831c0f5ee0cb5662c92ae50aa2a0766dfd1a2d",
   "version": "1.0",
-  "callback": "http://ec2-54-193-54-199.us-west-1.compute.amazonaws.com/auth/oauth/callback",
+  "callback": "http://whispering-headland-74504.herokuapp.com/auth/oauth/callback",
   "encryption": "HMAC-SHA1"
 });
 
