@@ -1,5 +1,7 @@
 var fs = require('fs');
 
+var FAMILY_LEAGUE_ID = 54295;
+
 var FantasySports = require('fantasysports');
 FantasySports.options({
   "accessTokenUrl": "https://api.login.yahoo.com/oauth/v2/get_request_token",
@@ -32,6 +34,7 @@ exports.myTeams = function (req, res) {
       console.log(data);
       var leagues = data.fantasy_content.users[0].user[1].games[0].game[1].leagues;
       var teams = {};
+      var leagueInfo;
       for (var league in leagues) {
         if (league !== 'count') {
           leagueInfo = leagues[league].league[0];
@@ -83,7 +86,7 @@ exports.getID = function (req, res) {
 exports.myMatchups = function (req, res) {
   FantasySports
     .request(req, res)
-    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.66969.t.1/matchups?format=json')
+    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.' + FAMILY_LEAGUE_ID + '.t.1/matchups?format=json')
     .done(function (data) {
 
       var weeklyStats;
@@ -155,7 +158,7 @@ exports.allMatchups = function (req, res) {
     teamIndex = teamIndex || 1;
     FantasySports
       .request(req, res)
-      .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.51871.t.' + teamIndex + '/matchups?format=json')
+      .api('http://fantasysports.yahooapis.com/fantasy/v2/team/342.l.' + FAMILY_LEAGUE_ID + '.t.' + teamIndex + '/matchups?format=json')
       .done(function (data) {
         fc = data.fantasy_content;
         console.log(fc);
@@ -193,7 +196,7 @@ exports.myUser = function (req, res) {
 exports.myLeagueTeams = function (req, res) {
   FantasySports
     .request(req, res)
-    .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/teams?format=json')
+    .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.' + FAMILY_LEAGUE_ID + '/teams?format=json')
     .done(function (data) {
       //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
 
@@ -208,7 +211,7 @@ exports.myLeagueTeams = function (req, res) {
 exports.myStandings = function (req, res) {
   FantasySports
     .request(req, res)
-    .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.91924/standings?format=json')
+    .api('http://fantasysports.yahooapis.com/fantasy/v2/league/342.l.' + FAMILY_LEAGUE_ID + '/standings?format=json')
     .done(function (data) {
       //var leagueData = data.fantasy_content.users[0].user[1].games[0].game[1].leagues
       var standings = data.fantasy_content.league[1].standings[0].teams;
@@ -223,20 +226,20 @@ exports.queryTeam = function (req, res) {
   console.log(req.params);
   console.log(req.query);
   var teamID = req.params.id || 1;
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '?format=json'
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '.t.' + teamID + '?format=json'
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
   })
 };
 exports.allTeams = function (req, res) {
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871/teams?format=json';
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '/teams?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
   })
 };
 exports.getMatchup = function (req, res) {
   var teamID = req.params.id || 1;
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '.t.' + teamID + '/matchups?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
   })
@@ -246,7 +249,7 @@ var matchupCache = {};
 exports.getMatchupByWeek = function (req, res) {
   var teamID = req.params.id || 1;
   var week = req.params.week;
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '.t.' + teamID + '/matchups?format=json';
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
     //var teamname = r[0].team[0][2].name;
@@ -272,7 +275,7 @@ exports.getAllMatchupsForTeam = function (req, res) {
   var teamID = req.params.id || 1;
   weeks = 18;
   cache[teamID] = {};
-  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.' + teamID + '/matchups?format=json';
+  var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '.t.' + teamID + '/matchups?format=json';
   console.log(apiString);
   FantasySports.request(req, res).api(apiString).done(function (data) {
 
@@ -302,7 +305,7 @@ exports.getAllMatchupsForTeam = function (req, res) {
 exports.myTeam = function (req, res) {
   FantasySports
     .request(req, res)
-    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.51871.t.1?format=json')
+    .api('http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '.t.1?format=json')
     .done(function (data) {
       res.json(data);
     });
