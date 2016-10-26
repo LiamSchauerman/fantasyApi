@@ -1,6 +1,7 @@
 var path = require('path');
 var cookieSession = require('cookie-session');
 var controller = require('./controller');
+var api = require('./api');
 
 module.exports = function (app, express) {
   app.use(cookieSession({
@@ -36,7 +37,6 @@ module.exports = function (app, express) {
   //     next();
   // });
   app.get('/', function (req, res) {
-    // console.log(__dirname + '/client/index.html')
     res.render('index.html')
   });
 
@@ -49,6 +49,11 @@ module.exports = function (app, express) {
   app.get("/getID", controller.getID);
   app.get("/auth/oauth/callback", controller.authorize);
 
+  app.get('/getTeam', function(req, res) {
+    api.fetchTeam(req, res, 1).then(function(data){
+      res.json(data);
+    })
+  });
 
 
 

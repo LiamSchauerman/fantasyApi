@@ -231,7 +231,7 @@ exports.queryTeam = function (req, res) {
     res.json(data);
   })
 };
-exports.allTeams = function (req, res) {
+  exports.allTeams = function (req, res) {
   var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/team/nba.l.' + FAMILY_LEAGUE_ID + '/teams?format=json';
   FantasySports.request(req, res).api(apiString).done(function (data) {
     res.json(data);
