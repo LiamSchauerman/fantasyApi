@@ -18,24 +18,12 @@ module.exports = function (app, express) {
     res.header("Access-Control-Allow-Headers", 'Content-Type, X-Requested-With');
     next();
   });
-
-  // chrome extension hits this link to get info on all players
-  // app.get("/api/init", function (req, res) {
-
-  //     fs.readFile(__dirname + "/../data/playerjson.txt", function(err,data){
-  //         var data = data + ''
-  //         var data = JSON.parse(data);
-  //         res.send(data);
-  //     })
-
-  // });
-
-  // app.use('/', function (req, res, next) {
-  //     res.header("Access-Control-Allow-Origin", "*");
-  //     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  //     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-  //     next();
-  // });
+  app.use('/', function (req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+      next();
+  });
   app.get('/', function (req, res) {
     res.render('index.html')
   });
@@ -50,9 +38,15 @@ module.exports = function (app, express) {
   app.get("/auth/oauth/callback", controller.authorize);
 
   app.get('/getTeam', function(req, res) {
-    api.fetchTeam(req, res, 1).then(function(data){
-      res.json(data);
-    })
+    api.fetchTeam(req, res, 1)
+        .then(function(data){
+            console.log('no ERROR');
+
+            res.json(data);
+        }).error(function(err){
+          console.log('FOUND ERROR');
+          console.log(err);
+      });
   });
 
 
