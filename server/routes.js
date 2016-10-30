@@ -38,15 +38,9 @@ module.exports = function (app, express) {
   app.get("/auth/oauth/callback", controller.authorize);
 
   app.get('/getTeam', function(req, res) {
-    api.fetchTeam(req, res, 1)
-        .then(function(data){
-            console.log('no ERROR');
-
-            res.json(data);
-        }).error(function(err){
-          console.log('FOUND ERROR');
-          console.log(err);
-      });
+    api.fetchTeam(req, res, 1, function(err, data){
+        res.json(data);
+    });
   });
 
 
