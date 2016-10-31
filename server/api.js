@@ -4,9 +4,9 @@ var FAMILY_LEAGUE_KEY = '364.l.54295';
 var FantasySports = require('fantasysports');
 var stat_id_map = {
     5: 'FG%',
-    9004003: 'FG',
+    9004003: 'FGMA',
     8: 'FT%',
-    9007006: 'FT',
+    9007006: 'FTMA',
     10: '3PTM',
     12: 'PTS',
     13: 'OREB',
@@ -60,6 +60,7 @@ var fetchTeam = function (req, res, teamId, cb) {
     FantasySports.request(req, res).api(apiString)
         .done(function (data) {
             console.log('INSIDE PROMISE DONE');
+            console.log(data);
             return cb(null, data);
   });
 };
