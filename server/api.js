@@ -31,16 +31,10 @@ function transformMatchupResponse(response) {
     var matchups = getMatchupsFromResponse(response);
     var target = {};
     Object.keys(matchups).forEach(function(j) {
-    	// console.log(j);
-    	// console.log(matchups[j]);
     	const teams = matchups[j]['0'].teams;
-    	// console.log(teams);
-    	// console.log(teams[0]);
     	for (var ind = 0; ind < 2; ind++) {
     		var team = teams[ind].team;
-    		// console.log('INSIDE FOR LOOP');
     		var weekNumber = 'week' + team[1].team_stats.week;
-    		// console.log(team[1]);
     		var teamData = team[0];
     		var weekResults = team[1].team_stats.stats;
     		var teamName = teamData.filter(function(item){
@@ -69,7 +63,6 @@ var fetchTeam = function (req, res, teamId, cb) {
             return cb(null, data);
   });
 };
-http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.%2054295/scoreboard
 var fetchMatchups = function (req, res, week, cb) {
     var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.' + FAMILY_LEAGUE_ID + '/scoreboard;week=' + (week || 1) + '?format=json';
     console.log(apiString);
