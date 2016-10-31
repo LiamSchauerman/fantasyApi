@@ -12,7 +12,17 @@ var fetchTeam = function (req, res, teamId, cb) {
             return cb(null, data);
   });
 };
-
+http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.%2054295/scoreboard
+var fetchMatchups = function (req, res, week, cb) {
+    var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.' + FAMILY_LEAGUE_ID + '/scoreboard:week=' + (week || 1) + '?format=json';
+    console.log(apiString);
+    FantasySports.request(req, res).api(apiString)
+        .done(function (data) {
+            console.log('INSIDE PROMISE DONE');
+            return cb(null, data);
+  });
+};
 module.exports = {
   fetchTeam: fetchTeam,
+  fetchMatchups: fetchMatchups,
 };

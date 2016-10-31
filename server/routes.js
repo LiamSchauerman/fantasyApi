@@ -43,6 +43,13 @@ module.exports = function (app, express) {
     });
   });
 
+  app.get('/getMatchups', function(req, res) {
+      var weekNumber = req.query.week || 1;
+    api.fetchMatchups(req, res, weekNumber, function(err, data){
+        res.json(data);
+    });
+  });
+
 
 
 
