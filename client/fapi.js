@@ -1,20 +1,116 @@
 var matchupResults = {};
-var addTeamToChart = function(){
-  return
+var buildChart = function(data, stat_id){
+    $(function () {
+        var categories = []; // populate with each Team Name
+        var series = []; // one series for each stat, name and data array
+        var teamNames = Object.keys(data);
+        var statValues = [];
+        teamNames.forEach(function(teamName, idx) {
+            categories.push(teamName);
+            var teamResults = data[teamName]['week1'];
+            statValues.push(teamResults[stat_id]);
+        });
+        var series = [{
+            name: stat_id,
+            data: statValues,
+        }];
+        // [{
+        //     name: 'Tokyo',
+        //     data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        //
+        // }, {
+        //     name: 'New York',
+        //     data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+        //
+        // }, {
+        //     name: 'London',
+        //     data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+        //
+        // }, {
+        //     name: 'Berlin',
+        //     data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+        //
+        // }]
+
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Rainfall'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: categories,
+                // categories: [
+                //     'FG%',
+                //     'FT%',
+                //     '3PTM',
+                //     'PTS',
+                //     'OREB',
+                //     'REB',
+                //     'AST',
+                //     'STL',
+                //     'BLK'
+                // ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Rainfall (mm)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: series,
+            // series: [{
+            //     name: 'Tokyo',
+            //     data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            //
+            // }, {
+            //     name: 'New York',
+            //     data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+            //
+            // }, {
+            //     name: 'London',
+            //     data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+            //
+            // }, {
+            //     name: 'Berlin',
+            //     data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+            //
+            // }]
+        });
+    });
 }
-//ajax request to get all matchup results. all teams and all weeks
-var teamStats = function(){
-	console.log('test');
+console.log(data);
+console.log('inside , got data');
+var weekStats = function(){
+    buildChart(data, 'AST');
+    return true;
 	$.ajax({
 		type: "GET",
-		url: "http://fantasybballapi.herokuapp.com/allmatchups", 
+		url: "/getMatchups",
 		dataType: "json",
 		success: function(data){
 			console.log(data);
 			matchupResults = data;
-
-			// var statMax = getTeamMax("1", "BLK", data);
-			// chartTeamStatsByCategory(data, 'BLK', "1", statAvg);
+            buildChart(data);
 		},
 		error: function(obj, str, err){
 			console.log(str);
@@ -29,91 +125,6 @@ var teamStats = function(){
 
 //this will print scoring totals from week 9
 $(document).on('ready', function(){
-  var week = 9;
-  var stat = "PTS";
-  var height = 500
-
-  var svg = d3.select('svg')
-    .attr({
-      width: 500,
-      height: height
-    })
-  var teamCount = Object.keys(fantasyContent);
-  var data = [];
-  function getData(){
-    $.each(teamCount, function(team, i){
-      data.push(fantasyContent[team+1][week][stat])
-    });
-    data.sort(function(a,b){
-      return b-a;
-    })
-  }
-  getData();
-
-  var teamData = [];
-  var weekCount = [0,1,2,3,4,5,6,7,8,9]
-  function getTeamByWeek(teamIndex){
-    $.each(weekCount, function(week, i){
-      console.log(week)
-      teamData.push(fantasyContent[teamIndex][week][stat])
-    })
-  }
-  getTeamByWeek(1);
-  console.log(data)
-  // now data is an array of points
-  var line = d3.svg.line()
-    .x(function(d,i){ return xScale(i)})
-    .y(function(d,i){return yScaleLine(d)})
-
-
-  var maxScore = d3.max(teamData)
-  var yScale = d3.scale.linear()
-    .domain([0, maxScore])
-    .range([0,height])
-
-  var yScaleLine = d3.scale.linear()
-    .domain([0, maxScore])
-    .range([height,0])
-
-  var xScale = d3.scale.ordinal()
-    .domain(d3.range(teamData.length))
-    .rangeBands([0,500], 0.7)
-
-  var axis = d3.svg.axis()
-    .scale(yScaleLine)
-    .orient("right")
-    .ticks(4)
-    // .tickValues([100, 200, 300, 400, 500])
-
-  var g = svg.append('g')
-  axis(g);
-    g.attr("transform", "translate(0, 0)");
-    g.selectAll("path")
-      .style({fill: "none", stroke: "#000"})
-    g.selectAll("line")
-      .style({stroke: "#000"})
-
-
-  g.append("path")
-    .attr("d", line(teamData))
-    .style({
-      fill: "none",
-      stroke: "#000"
-    })
-
-  var rectangles = g.selectAll("rect")
-    .data(teamData);
-
-  rectangles.enter()
-    .append("rect")
-    .attr({
-      width: xScale.rangeBand(),
-      height: function(d,i){ return yScale(d)},
-      x: function(d,i){ return xScale(i)},
-      y: function(d,i){ return height-yScale(d)}
-    })
-    .on('mouseover', function(d){
-      console.log(d)
-    })
-
+    console.log('ready');
+    weekStats();
 })

@@ -6,7 +6,8 @@
     <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
     <link rel='stylesheet' type='css' href='style.css'>
     <script src='jquery.js'></script>
-    <script type="text/javascript" src="./d3.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script type="text/javascript" src="data.js"></script>
     <script type="text/javascript" src="fapi.js"></script>
   </head>
@@ -14,19 +15,7 @@
     <div id='container'>
       <div id='header'>Yahoo Fantasy API</div>
       <button id='testButton' onclick="teamStats()" >Submit</button>
-      <a href='/allmatchups'>all matchups</a>
-      <h4 onclick="addTeamToChart(1, 'PTS')">PTS</h4>
-      <h4 onclick="addTeamToChart(1, 'REB')">REB</h4>
-      <h4 onclick="addTeamToChart(1, 'OREB')">OREB</h4>
-      <h4 onclick="addTeamToChart(1, 'STL')">STL</h4>
-      <h4 onclick="addTeamToChart(1, '3PTM')">3PTM</h4>
-      <h4 onclick="addTeamToChart(1, 'BLK')">BLK</h4>
-      <h4 onclick="addTeamToChart(1, 'AST')">AST</h4>
-      <hr />
-
-      <div id='chart'>
-        <svg></svg>
-      </div>
+      <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
   </body>
 </html>
