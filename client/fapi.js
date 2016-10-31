@@ -1,4 +1,3 @@
-var matchupResults = {};
 var buildChart = function(data, stat_id){
     $(function () {
         var series = []; // one series for each stat, name and data array
@@ -55,33 +54,26 @@ var buildChart = function(data, stat_id){
         });
     });
 }
-console.log(data);
-console.log('inside , got data');
-var weekStats = function(){
-    buildChart(data, 'AST');
-    return true;
-	$.ajax({
+
+$(document).on('ready', function(){
+    $.ajax({
 		type: "GET",
 		url: "/getMatchups",
 		dataType: "json",
 		success: function(data){
-			console.log(data);
-			matchupResults = data;
-            buildChart(data);
+            var teamName = Object.keys(data)[0];
+            var weekNum = Object.keys(data[teamName])[0];
+            var categories = Object.keys(data[teamName][weekNum]);
+
+            categories.forEach(function(category){
+                if (category.indexOf('FGMA') >= 0) return;
+                if (category.indexOf('FTMA') >= 0) return;
+                buildChart(data, category);
+            })
 		},
 		error: function(obj, str, err){
 			console.log(str);
 		}
 	})
-};
 
-$(document).on('ready', function(){
-    var teamName = Object.keys(data)[0];
-    var weekNum = Object.keys(data[teamName])[0];
-    var categories = Object.keys(data[teamName][weekNum]);
-    categories.forEach(function(category){
-        if (category.indexOf('FGMA') >= 0) return;
-        if (category.indexOf('FTMA') >= 0) return;
-        buildChart(data, category);
-    })
 })
