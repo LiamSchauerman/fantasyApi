@@ -56,11 +56,14 @@ var buildChart = function(data, stat_id){
 }
 
 $(document).on('ready', function(){
+    console.log('ready');
     $.ajax({
 		type: "GET",
 		url: "/getMatchups",
 		dataType: "json",
 		success: function(data){
+            console.log('got data');
+console.log(data);
             var teamName = Object.keys(data)[0];
             var weekNum = Object.keys(data[teamName])[0];
             var categories = Object.keys(data[teamName][weekNum]);
