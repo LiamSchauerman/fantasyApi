@@ -44,8 +44,11 @@ module.exports = function (app, express) {
   });
 
   app.get('/getMatchups', function(req, res) {
-      var weekNumber = req.query.week || 1;
-    api.fetchMatchups(req, res, weekNumber, function(err, data){
+      var week = 1;
+      if (req.query && req.query.week) {
+          week = req.query.week;
+      }
+      api.fetchMatchups(req, res, week, function(err, data){
         res.json(data);
     });
   });
