@@ -79,7 +79,7 @@ var fetchMatchups = function (req, res, week, cb) {
                     Object.keys(transformed1).forEach(function(teamName) {
                         transformed1[teamName].week2 = transformed2[teamName].week2
                     });
-                    return cb(null, transformed);
+                    return cb(null, transformed1);
           });
   });
 };
