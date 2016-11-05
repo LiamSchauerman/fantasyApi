@@ -61,10 +61,13 @@ var fetchTeam = function (req, res, teamId, cb) {
   });
 };
 var fetchMatchups = function (req, res, week, cb) {
+    // for each week, make an API call
     var apiString = 'http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.' + FAMILY_LEAGUE_ID + '/scoreboard;week=' + (week || 1) + '?format=json';
     FantasySports.request(req, res).api(apiString)
         .done(function (data) {
             var transformed1 = transformMatchupResponse(data);
+            console.log('TRANSFORMED');
+            console.log(transformed1);
             var apiString2 = 'http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.' + FAMILY_LEAGUE_ID + '/scoreboard;week=2?format=json';
 
             console.log('got transformed1');
