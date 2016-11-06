@@ -82,7 +82,7 @@ var fetchMatchups = function (req, res, week, cb) {
                 .done(function (data2) {
                     var transformed2 = transformMatchupResponse(data2);
                     Object.keys(data).forEach(function(teamName) {
-                        transformed1[teamName].week2 = transformed2[teamName].week2
+                        data[teamName].week2 = transformed2[teamName].week2
                     });
                     return cb(null, data);
           });
