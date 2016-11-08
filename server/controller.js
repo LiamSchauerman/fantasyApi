@@ -22,7 +22,6 @@ exports.oauth = function (req, res) {
 // app.get("/auth/oauth/callback")
 exports.authorize = function (req, res) {
   console.log('end auth');
-  console.log(JSON.stringify(res));
   FantasySports.endAuth(req, res);
 };
 
