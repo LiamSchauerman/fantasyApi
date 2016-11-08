@@ -73,11 +73,8 @@ var fetchMatchups = function (req, res, week, cb) {
         .done(function (response) {
             console.log(JSON.stringify(response));
             data = transformMatchupResponse(response);
-            console.log('TRANSFORMED');
-            console.log(data);
             var apiString2 = 'http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.' + FAMILY_LEAGUE_ID + '/scoreboard;week=2?format=json';
 
-            console.log('got transformed1');
             FantasySports.request(req, res).api(apiString2)
                 .done(function (data2) {
                     var transformed2 = transformMatchupResponse(data2);
@@ -89,12 +86,12 @@ var fetchMatchups = function (req, res, week, cb) {
                     FantasySports.request(req, res).api(apiString3)
                         .done(function (data3) {
                             var transformed3 = transformMatchupResponse(data3);
+                            console.log(transformed3);
                             Object.keys(data).forEach(function(teamName) {
                                 data[teamName].week3 = transformed3[teamName].week3
                             });
                             return cb(null, data);
                   });
-                    return cb(null, data);
           });
   });
 };
