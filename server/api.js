@@ -86,11 +86,19 @@ var fetchMatchups = function (req, res, week, cb) {
                     FantasySports.request(req, res).api(apiString3)
                         .done(function (data3) {
                             var transformed3 = transformMatchupResponse(data3);
-                            console.log(transformed3);
                             Object.keys(data).forEach(function(teamName) {
                                 data[teamName].week3 = transformed3[teamName].week3
                             });
-                            return cb(null, data);
+                            var apiString4 = 'http://fantasysports.yahooapis.com/fantasy/v2/leagues;league_keys=nba.l.' + FAMILY_LEAGUE_ID + '/scoreboard;week=4?format=json';
+
+                            FantasySports.request(req, res).api(apiString4)
+                                .done(function (data4) {
+                                    var transformed4 = transformMatchupResponse(data4);
+                                    Object.keys(data).forEach(function(teamName) {
+                                        data[teamName].week4 = transformed4[teamName].week4
+                                    });
+                                    return cb(null, data);
+                            });
                   });
           });
   });
